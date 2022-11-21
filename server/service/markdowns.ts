@@ -5,8 +5,7 @@ const prisma = new PrismaClient()
 
 export const getMarkdowns = depend(
   { prisma: prisma as { markdown: { findMany(): Promise<Markdown[]> } } },
-  async ({ prisma }, limit?: number) =>
-    (await prisma.markdown.findMany()).slice(0, limit)
+  async ({ prisma }) => await prisma.markdown.findMany()
 )
 
 export const getMarkdown = async (id: number) => {

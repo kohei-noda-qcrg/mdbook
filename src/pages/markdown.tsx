@@ -7,19 +7,20 @@ import Layout from '~/components/Layout'
 import type { NextPage } from 'next'
 
 const MarkdownPage: NextPage = () => {
-  const { data: md, error, mutate } = useAspidaSWR(apiClient.markdown)
+  const { data: markdowns, error, mutate } = useAspidaSWR(apiClient.markdowns)
   const [markdown, setMarkdown] = useState('')
   const inputMarkdown = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setMarkdown(e.target.value),
     []
   )
+  console.log(markdowns)
 
   const createMarkdown = useCallback(
     async (e: FormEvent) => {
       e.preventDefault()
       if (!markdown) return
 
-      await apiClient.markdown.post({
+      await apiClient.markdowns.post({
         body: { title: 'test', content: markdown }
       })
       setMarkdown('')
@@ -40,7 +41,12 @@ const MarkdownPage: NextPage = () => {
         <input type="text" onSubmit={createMarkdown} onChange={inputMarkdown} />
         <button onClick={createMarkdown}>Submit</button>
       </Layout>
-      <p> {md}</p>
+      {markdowns?.map((markdown) => (
+        <div key={markdown.id}>
+          <h1>{markdown.title}</h1>
+          <p>{markdown.content}</p>
+        </div>
+      ))}
     </>
   )
 }

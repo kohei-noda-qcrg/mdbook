@@ -2,28 +2,29 @@ services:
   db:
     image: mysql:8
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: prisma_db
-      MYSQL_USER: prisma_user
-      MYSQL_PASSWORD: pass
+    networks:
+      - backend
+    env_file: ./mysql/mysql.env
     ports:
       - 3306:3306
     volumes:
-      - ./server/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
   app:
     image: node:18
     restart: always
     working_dir: /app
     tty: true
+    networks:
+      - backend
     # command: npm install && npm run dev
     volumes:
       - /app/node_modules
       - .:/app
     ports:
       - 24459:24459
-      - 5001:5001
       - 8000:8000
     depends_on:
       - db
     
+networks:
+  backend:
