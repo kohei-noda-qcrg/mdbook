@@ -1,5 +1,5 @@
 import { defineController } from './$relay'
-import { getMarkdowns, createMarkdown } from '$/service/markdown'
+import { createMarkdown } from '$/service/markdown'
 
 export default defineController(() => ({
   get: () => ({ status: 200, body: 'Hello' }),
