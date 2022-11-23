@@ -42,7 +42,7 @@ const MarkdownPage: NextPage = () => {
     const d = await apiClient.markdowns._markdownId(Number(id)).put({
       body: { id: iid, title, content }
     })
-    console.log("statuscheck", d)
+    console.log('statuscheck', d)
     if (d.status === 200) {
       console.log('success', d)
     } else {
