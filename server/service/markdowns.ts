@@ -8,7 +8,7 @@ export const getMarkdowns = depend(
   async ({ prisma }) => await prisma.markdown.findMany()
 )
 
-export const getMarkdown = async (id: number) => {
+export const getMarkdown = async (id: Markdown['id']) => {
   return await prisma.markdown.findUnique({
     where: {
       id: id
@@ -16,7 +16,10 @@ export const getMarkdown = async (id: number) => {
   })
 }
 
-export const createMarkdown = async (title: string, content: string) => {
+export const createMarkdown = async (
+  title: Markdown['title'],
+  content: Markdown['content']
+) => {
   return await prisma.markdown.create({
     data: {
       title: title,
@@ -26,9 +29,9 @@ export const createMarkdown = async (title: string, content: string) => {
 }
 
 export const updateMarkdown = async (
-  id: number,
-  title: string,
-  content: string
+  id: Markdown['id'],
+  title: Markdown['title'],
+  content: Markdown['content']
 ) => {
   return await prisma.markdown.update({
     where: {

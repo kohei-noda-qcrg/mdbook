@@ -2,10 +2,10 @@ import type { Markdown } from '@prisma/client'
 
 export type Methods = {
   get: {
-    resBody: Markdown[]
+    resBody: Markdown
   }
-  post: {
-    reqBody: Pick<Markdown, 'title' | 'content'>
+  put: {
+    reqBody: Markdown
     resBody: Markdown
   }
 }

@@ -65,6 +65,9 @@ const UserBanner = () => {
           <Link href={pagesPath.article.$url()}>
             <a className={styles.nav}>Article</a>
           </Link>
+          <Link href={pagesPath.markdown.$url()}>
+            <a className={styles.nav}>Markdown</a>
+          </Link>
         </div>
         <form
           onSubmit={(e) => {

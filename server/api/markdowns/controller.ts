@@ -6,7 +6,7 @@ export default defineController(() => ({
     return { status: 200, body: await getMarkdowns() }
   },
   post: async ({ body }) => {
-    if (body.title && body.content) {
+    if ('title' in body && 'content' in body) {
       const markdown = await createMarkdown(body.title, body.content)
       return { status: 201, body: markdown }
     } else {
