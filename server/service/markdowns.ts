@@ -23,7 +23,8 @@ export const createMarkdown = async (
   return await prisma.markdown.create({
     data: {
       title: title,
-      content: content
+      content: content,
+      url: ''
     }
   })
 }
@@ -31,7 +32,8 @@ export const createMarkdown = async (
 export const updateMarkdown = async (
   id: Markdown['id'],
   title: Markdown['title'],
-  content: Markdown['content']
+  content: Markdown['content'],
+  complete: Markdown['complete']
 ) => {
   return await prisma.markdown.update({
     where: {
@@ -39,7 +41,8 @@ export const updateMarkdown = async (
     },
     data: {
       title: title,
-      content: content
+      content: content,
+      complete: complete
     }
   })
 }

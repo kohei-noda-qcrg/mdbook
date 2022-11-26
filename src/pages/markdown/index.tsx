@@ -22,6 +22,19 @@ const MarkdownPage: NextPage = () => {
 
   const openModal = () => setVisible(true)
   const closeModal = () => setVisible(false)
+  const toggleComplete = useCallback(async (id: number) => {
+    const md = markdowns?.find((m) => m.id === id)
+    if (md) {
+      const d = await apiClient.markdowns._markdownId(id).put({
+        body: {
+          title: md.title,
+          content: md.content,
+          complete: !md.complete
+        }
+      })
+    }
+    mutate()
+  }, [])
   const createMarkdownWithTitle = useCallback(async () => {
     if (!title) return
 
@@ -61,7 +74,15 @@ const MarkdownPage: NextPage = () => {
         </Dialog>
         {markdowns?.map((markdown) => (
           <Link key={markdown.id} href={`/markdown/${markdown.id}`}>
-            <h1>{markdown.title}</h1>
+            <>
+              <h1>{markdown.title}</h1>
+              <p>{markdown.completeRead ? 'Yes' : 'No'}</p>
+              <input
+                type="checkbox"
+                checked={markdown.completeRead}
+                onChange={() => toggleComplete(markdown.id)}
+              />
+            </>
           </Link>
         ))}
       </Layout>

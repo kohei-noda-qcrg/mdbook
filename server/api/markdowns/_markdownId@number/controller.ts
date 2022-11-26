@@ -7,9 +7,9 @@ export default defineController(() => ({
     if (!markdown) return { status: 404 as const }
     return { status: 200, body: markdown }
   },
-  put: async ({ body: { id, title, content } }) => {
+  put: async ({ body: { id, title, content, complete } }) => {
     if (!id || !title || !content) return { status: 400 as const }
-    const markdown = await updateMarkdown(id, title, content)
+    const markdown = await updateMarkdown(id, title, content, complete)
     if (!markdown) return { status: 404 as const }
     return { status: 200, body: markdown }
   }
