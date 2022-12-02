@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import { useCallback, useState } from 'react'
 import useAspidaSWR from '@aspida/swr'
-import styles from '~/styles/Home.module.css'
 import { apiClient } from '~/utils/apiClient'
 import type { Markdown } from '$prisma/client'
-import type { FormEvent, ChangeEvent } from 'react'
 import Layout from '~/components/Layout'
 import type { NextPage } from 'next'
 import {
@@ -30,15 +28,13 @@ const MarkdownPage: NextPage = () => {
   const closeModal = () => setVisible(false)
 
   const toggleComplete = useCallback(async (markdown: Markdown) => {
-    if (markdown) {
-      const d = await apiClient.markdowns._markdownId(markdown.id).patch({
-        body: {
-          title: markdown.title,
-          body: markdown.body,
-          completeRead: !markdown.completeRead
-        }
-      })
-    }
+    await apiClient.markdowns._markdownId(markdown.id).patch({
+      body: {
+        title: markdown.title,
+        body: markdown.body,
+        completeRead: !markdown.completeRead
+      }
+    })
     mutate()
   }, [])
 

@@ -2,7 +2,7 @@ import type { Markdown } from '$prisma/client'
 
 export type Methods = {
   patch: {
-    reqBody: Partial<Pick<Markdown, 'title' | 'body'>>
+    reqBody: Partial<Pick<Markdown, 'title' | 'body' | 'completeRead'>>
     status: 204
   }
   delete: {
