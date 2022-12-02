@@ -1,16 +1,22 @@
-import { getMarkdown, updateMarkdown } from '$/service/markdowns'
 import { defineController } from './$relay'
+import {
+  updateMarkdown,
+  deleteMarkdown,
+  getMarkdown
+} from '$/service/markdowns'
 
 export default defineController(() => ({
-  get: async ({ params: { markdownId } }) => {
-    const markdown = await getMarkdown(markdownId)
-    if (!markdown) return { status: 404 as const }
-    return { status: 200, body: markdown }
+  patch: async ({ body, params }) => {
+    await updateMarkdown(params.markdownId, body)
+    return { status: 204 }
   },
-  put: async ({ body: { id, title, content, complete } }) => {
-    if (!id || !title || !content) return { status: 400 as const }
-    const markdown = await updateMarkdown(id, title, content, complete)
-    if (!markdown) return { status: 404 as const }
+  delete: async ({ params }) => {
+    await deleteMarkdown(params.markdownId)
+    return { status: 204 }
+  },
+  get: async ({ params }) => {
+    const markdown = await getMarkdown(params.markdownId)
+    if (!markdown) return { status: 404 }
     return { status: 200, body: markdown }
   }
 }))

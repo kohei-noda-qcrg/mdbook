@@ -7,6 +7,7 @@ import Home from '~/pages/index'
 import { render, fireEvent, waitFor } from '../testUtils'
 
 dotenv.config({ path: 'server/.env' })
+jest.mock('next/router', () => require('next-router-mock'))
 
 const apiClient = api(aspida(undefined, { baseURL: process.env.API_BASE_PATH }))
 const res = function <T extends () => unknown>(
@@ -18,7 +19,7 @@ const res = function <T extends () => unknown>(
 let fastify: FastifyInstance
 
 beforeAll(() => {
-  fastify = Fastify()
+  fastify = Fastify({ forceCloseConnections: true })
   fastify.register(cors)
   fastify.get(apiClient.tasks.$path(), (_, reply) => {
     reply.send(
@@ -29,7 +30,7 @@ beforeAll(() => {
     )
   })
 
-  return fastify.listen(process.env.API_SERVER_PORT ?? 8080)
+  return fastify.listen({ port: +(process.env.API_SERVER_PORT ?? '8080') })
 })
 
 afterAll(() => fastify.close())

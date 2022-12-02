@@ -1,16 +1,19 @@
 import { defineController } from './$relay'
 import { getMarkdowns, createMarkdown } from '$/service/markdowns'
 
-export default defineController(() => ({
-  get: async () => {
-    return { status: 200, body: await getMarkdowns() }
-  },
-  post: async ({ body }) => {
-    if ('title' in body && 'content' in body) {
-      const markdown = await createMarkdown(body.title, body.content)
-      return { status: 201, body: markdown }
-    } else {
-      return { status: 400, body: 'Bad Request' }
-    }
-  }
-}))
+const print = (text: string) => console.log(text)
+
+export default defineController(
+  { getMarkdowns, print },
+  ({ getMarkdowns, print }) => ({
+    get: async ({ query }) => {
+      if (query?.message) print(query.message)
+
+      return { status: 200, body: await getMarkdowns(query?.limit) }
+    },
+    post: async ({ body }) => ({
+      status: 201,
+      body: await createMarkdown(body)
+    })
+  })
+)

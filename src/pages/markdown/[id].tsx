@@ -17,6 +17,7 @@ const MarkdownEditor = dynamic(() => import('@uiw/react-markdown-editor'), {
 
 const MarkdownPage: NextPage = () => {
   const router = useRouter()
+
   const id = router.query.id as string
   const {
     data: markdown,
@@ -26,29 +27,30 @@ const MarkdownPage: NextPage = () => {
   useEffect(() => {
     console.log(id, markdown)
     if (markdown) {
-      setId(markdown.id)
       setTitle(markdown.title)
-      setContent(markdown.content)
+      setContent(markdown.body)
     }
   }, [markdown])
-  const [iid, setId] = useState(0)
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('loading...')
-  const handleChange = (content: string) => {
-    setContent(content)
-  }
 
   const handleSave = async () => {
-    const d = await apiClient.markdowns._markdownId(Number(id)).put({
-      body: { id: iid, title, content }
+    console.log('markdown', markdown, 'content', content)
+    const d = await apiClient.markdowns._markdownId(Number(id)).patch({
+      body: { title, body: content }
     })
     console.log('statuscheck', d)
-    if (d.status === 200) {
+    if (d.status === 204) {
       console.log('success', d)
     } else {
       console.log('failed', d)
     }
     mutate()
+  }
+
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('loading...')
+  const handleChange = (content: string) => {
+    setContent(content)
+    console.log('content', content)
   }
 
   return (

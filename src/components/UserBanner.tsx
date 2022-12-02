@@ -59,14 +59,14 @@ const UserBanner = () => {
     <div>
       <div className={styles.userBanner}>
         <div>
-          <Link href={pagesPath.$url()}>
-            <a className={styles.nav}>Home</a>
+          <Link href={pagesPath.$url()} className={styles.nav}>
+            Home
           </Link>
-          <Link href={pagesPath.article.$url()}>
-            <a className={styles.nav}>Article</a>
+          <Link href={pagesPath.article.$url()} className={styles.nav}>
+            Article
           </Link>
-          <Link href={pagesPath.markdown.$url()}>
-            <a className={styles.nav}>Markdown</a>
+          <Link href={pagesPath.markdown.$url()} className={styles.nav}>
+            Markdown
           </Link>
         </div>
         <form

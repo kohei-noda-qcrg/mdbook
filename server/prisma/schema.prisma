@@ -16,9 +16,8 @@ model Task {
 model Markdown {
   id    Int     @id @default(autoincrement())
   title String
-  content String @db.LongText
-  url String @db.Text
-  complete Boolean @default(false)
+  body String @db.LongText
+  completeRead  Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
