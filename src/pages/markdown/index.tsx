@@ -83,7 +83,9 @@ const MarkdownPage: NextPage = () => {
                 alignItems: 'center'
               }}
             >
-              <h2>{markdown.title}</h2>
+              <Link href={`/markdown/view/${markdown.id}`}>
+                <h2>{markdown.title}</h2>
+              </Link>
               <Checkbox
                 value={markdown.completeRead}
                 onClick={() => {
@@ -91,7 +93,10 @@ const MarkdownPage: NextPage = () => {
                 }}
               />
               <Button variant="contained" color="primary">
-                <Link href={`/markdown/${markdown.id}`}> Edit </Link>
+                <Link href={`/markdown/edit/${markdown.id}`}> Edit </Link>
+              </Button>
+              <Button variant="contained" color="secondary">
+                <Link href={`/markdown/view/${markdown.id}`}> View </Link>
               </Button>
             </Box>
           </Grid>

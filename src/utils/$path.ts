@@ -9,9 +9,16 @@ export const pagesPath = {
     $url: (url?: { query?: OptionalQuery0, hash?: string }) => ({ pathname: '/article' as const, query: url?.query, hash: url?.hash })
   },
   "markdown": {
-    _id: (id: string | number) => ({
-      $url: (url?: { hash?: string }) => ({ pathname: '/markdown/[id]' as const, query: { id }, hash: url?.hash })
-    }),
+    "edit": {
+      _id: (id: string | number) => ({
+        $url: (url?: { hash?: string }) => ({ pathname: '/markdown/edit/[id]' as const, query: { id }, hash: url?.hash })
+      })
+    },
+    "view": {
+      _id: (id: string | number) => ({
+        $url: (url?: { hash?: string }) => ({ pathname: '/markdown/view/[id]' as const, query: { id }, hash: url?.hash })
+      })
+    },
     $url: (url?: { hash?: string }) => ({ pathname: '/markdown' as const, hash: url?.hash })
   },
   $url: (url?: { hash?: string }) => ({ pathname: '/' as const, hash: url?.hash })
