@@ -38,7 +38,11 @@ const MarkdownView: NextPage = () => {
         <MarkdownPreview
           source={content}
           rehypeRewrite={(node, index, parent) => {
-            if (parent &&  parent.type !== 'root' && /^h(1|2|3|4|5|6)/.test(parent.tagName)) {
+            if (
+              parent &&
+              parent.type !== 'root' &&
+              /^h(1|2|3|4|5|6)/.test(parent.tagName)
+            ) {
               parent.children = parent.children.slice(1)
             }
           }}
