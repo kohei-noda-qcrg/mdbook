@@ -1,9 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { SWRConfig } from 'swr'
+import { RecoilRoot } from 'recoil'
 
 const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <SWRConfig value={{ dedupingInterval: 0 }}>{children}</SWRConfig>
+  <RecoilRoot>
+    <SWRConfig value={{ dedupingInterval: 0 }}>{children}</SWRConfig>
+  </RecoilRoot>
 )
 
 const customRender = (ui: React.ReactElement, options = {}) =>
