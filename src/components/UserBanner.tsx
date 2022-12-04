@@ -5,11 +5,8 @@ import type { UserInfo } from '$/types'
 import type { ChangeEvent } from 'react'
 import Link from 'next/link'
 import { pagesPath } from '~/utils/$path'
-import { useRouter } from 'next/router'
 
 const UserBanner = () => {
-  const router = useRouter()
-  const [search, setSearch] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState('')
   const [userInfo, setUserInfo] = useState({} as UserInfo)
@@ -62,34 +59,10 @@ const UserBanner = () => {
           <Link href={pagesPath.$url()} className={styles.nav}>
             Home
           </Link>
-          <Link href={pagesPath.article.$url()} className={styles.nav}>
-            Article
-          </Link>
           <Link href={pagesPath.markdown.$url()} className={styles.nav}>
             Markdown
           </Link>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            router.push(
-              pagesPath.article.$url({
-                query: {
-                  search
-                }
-              })
-            )
-          }}
-        >
-          <input
-            type="text"
-            name="query"
-            onInput={(e) =>
-              e.target instanceof HTMLInputElement && setSearch(e.target.value)
-            }
-          />
-          <button type="submit">search</button>
-        </form>
         <div className={styles.spacing} />
         <div>
           {isLoggedIn ? (
