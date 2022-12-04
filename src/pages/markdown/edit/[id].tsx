@@ -2,6 +2,7 @@ import '@uiw/react-markdown-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import { apiClient } from '~/utils/apiClient'
 import { Box, Button } from '@mui/material'
+import { isDesktop } from 'react-device-detect'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -11,6 +12,8 @@ import Layout from '~/components/Layout'
 import Link from 'next/link'
 import rehypeSanitize from 'rehype-sanitize'
 import useAspidaSWR from '@aspida/swr'
+import { isDarkModeState } from '~/recoil/atoms/isDarkMode'
+import { useRecoilValue } from 'recoil'
 
 const MarkdownEditor = dynamic(() => import('@uiw/react-markdown-editor'), {
   ssr: false
@@ -41,8 +44,9 @@ const MarkdownPage: NextPage = () => {
     }
   }
 
+  const isDarkMode = useRecoilValue(isDarkModeState)
   const [title, setTitle] = useState('')
-  const [content, setContent] = useState('loading...')
+  const [content, setContent] = useState(markdown?.body || '')
   const handleChange = (content: string) => {
     setContent(content)
   }
@@ -55,20 +59,23 @@ const MarkdownPage: NextPage = () => {
 
       <Layout>
         {error && <div>failed to load</div>}
-        <MarkdownEditor
-          visible={true}
-          value={content}
-          style={{ height: '70vh', width: '90vw' }}
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          onChange={(value, _) => handleChange(value)}
-          previewProps={{ rehypePlugins: [[rehypeSanitize]] }}
-        />
+        <h1>{markdown?.title}</h1>
+        <div data-color-mode={isDarkMode ? 'dark' : 'light'}>
+          <MarkdownEditor
+            visible={true}
+            value={content}
+            style={{ height: '70vh', width: '90vw' }}
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onChange={(value, _) => handleChange(value)}
+            previewProps={{ rehypePlugins: [[rehypeSanitize]] }}
+          />
+        </div>
         <Box
           style={{
             display: 'flex',
             justifyContent: 'space-between',
             marginTop: '1em',
-            width: '20vw'
+            width: isDesktop ? '30vw' : '80vw'
           }}
         >
           <Button onClick={handleSave} variant="outlined">

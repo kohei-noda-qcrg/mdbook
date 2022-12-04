@@ -5,11 +5,17 @@ import type { UserInfo } from '$/types'
 import type { ChangeEvent } from 'react'
 import Link from 'next/link'
 import { pagesPath } from '~/utils/$path'
+import { useRecoilState } from 'recoil'
+import { isDarkModeState } from '~/recoil/atoms/isDarkMode'
+import { Switch } from '@mui/material'
+import NightsStayIcon from '@mui/icons-material/NightsStay'
+import LightModeIcon from '@mui/icons-material/LightMode'
 
 const UserBanner = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState('')
   const [userInfo, setUserInfo] = useState({} as UserInfo)
+  const [isDarkMode, setIsDarkMode] = useRecoilState(isDarkModeState)
 
   const editIcon = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +58,11 @@ const UserBanner = () => {
     setIsLoggedIn(false)
   }, [])
 
+  const handleToggleDarkMode = useCallback(() => {
+    setIsDarkMode(!isDarkMode)
+    console.log(isDarkMode)
+  }, [isDarkMode])
+
   return (
     <div>
       <div className={styles.userBanner}>
@@ -63,6 +74,13 @@ const UserBanner = () => {
             Markdown
           </Link>
         </div>
+        <Switch
+          checked={isDarkMode}
+          onChange={handleToggleDarkMode}
+          checkedIcon={<NightsStayIcon />}
+          icon={<LightModeIcon />}
+          style={{ color: isDarkMode ? '#737' : '#CC2' }}
+        />
         <div className={styles.spacing} />
         <div>
           {isLoggedIn ? (
