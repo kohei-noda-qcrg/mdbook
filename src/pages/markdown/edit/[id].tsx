@@ -2,18 +2,18 @@ import '@uiw/react-markdown-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import { apiClient } from '~/utils/apiClient'
 import { Box, Button } from '@mui/material'
+import { isDarkModeState } from '~/recoil/atoms/isDarkMode'
 import { isDesktop } from 'react-device-detect'
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import Layout from '~/components/Layout'
 import Link from 'next/link'
-import rehypeSanitize from 'rehype-sanitize'
 import useAspidaSWR from '@aspida/swr'
-import { isDarkModeState } from '~/recoil/atoms/isDarkMode'
-import { useRecoilValue } from 'recoil'
+import remarkGfm from 'remark-gfm'
 
 const MarkdownEditor = dynamic(() => import('@uiw/react-markdown-editor'), {
   ssr: false
@@ -67,7 +67,9 @@ const MarkdownPage: NextPage = () => {
             style={{ height: '70vh', width: '90vw' }}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             onChange={(value, _) => handleChange(value)}
-            previewProps={{ rehypePlugins: [[rehypeSanitize]] }}
+            previewProps={{
+              remarkPlugins: [[remarkGfm]]
+            }}
           />
         </div>
         <Box
