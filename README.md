@@ -2,7 +2,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, you need to install the dependencies:
+
+```bash
+npm install && npm install --prefix server
+```
+
+After that, you need to create a `.env` file in the server and server/prisma directory:
+
+```bash
+cd server && cp .env.example .env
+cd ../server/prisma && cp .env.example .env
+```
+
+Then you need to edit the `.env` files and add your database credentials
+
+After that you can run the development server:
 
 ```bash
 npm run dev
