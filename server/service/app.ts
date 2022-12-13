@@ -7,14 +7,25 @@ import fastifyJwt from '@fastify/jwt'
 import {
   API_JWT_SECRET,
   API_BASE_PATH,
-  API_UPLOAD_DIR
+  API_UPLOAD_DIR,
+  CLIENT_ORIGIN
 } from '$/service/envValues'
 import server from '$/$server'
 
 export const init = (serverFactory?: FastifyServerFactory) => {
   const app = Fastify({ serverFactory })
   app.register(helmet, { crossOriginResourcePolicy: false })
-  app.register(cors)
+  app.register(cors, {
+    credentials: true,
+    origin: (origin, cb) => {
+      // const hostname = new URL(origin).hostname
+      if (origin === CLIENT_ORIGIN) {
+        cb(null, true)
+      } else {
+        cb(new Error('Not allowed'), false)
+      }
+    }
+  })
   app.register(fastifyStatic, {
     root: path.join(__dirname, 'static'),
     prefix: '/static/'
