@@ -41,6 +41,8 @@
     "@prisma/client": "^4.6.1",
     "@uiw/react-markdown-editor": "^5.10.1",
     "axios": "^0.27.2",
+    "firebase": "^9.15.0",
+    "firebaseui": "^6.0.2",
     "next": "^13.0.4",
     "next-remove-imports": "^1.0.8",
     "pathpida": "^0.19.3",
