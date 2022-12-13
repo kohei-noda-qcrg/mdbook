@@ -83,7 +83,7 @@ const MarkdownPage: NextPage = () => {
           <Button onClick={handleSave} variant="outlined">
             Save
           </Button>
-          <Button onClick={handleSave} variant="outlined" color="inherit">
+          <Button variant="outlined" color="inherit">
             <Link href="/markdown">Cancel Edit</Link>
           </Button>
         </Box>
