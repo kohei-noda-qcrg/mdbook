@@ -27,8 +27,12 @@ const Login: NextPage = () => {
     console.log('cred', cred)
     const id = await cred.user?.getIdToken()
     // check token via backend
-    // const res = await apiClient.auth._token(id).get({ query: { token: id } })
-    const res = await apiClient.auth.get({ query: { token: id } })
+    const res = await apiClient.auth
+      .get({ query: { token: id } })
+      .catch((error) => {
+        console.log('error', error)
+        return
+      })
     console.log('res', res)
     // set cookie
     document.cookie = `token=${id}`
