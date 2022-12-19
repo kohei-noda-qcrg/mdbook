@@ -5,6 +5,6 @@ export type Methods = {
     query?: {
       token: string
     }
-    resBody: DecodedIdToken
+    // resBody: DecodedIdToken
   }
 }

@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { applicationDefault } from 'firebase-admin/app'
 import { PrismaClient } from '@prisma/client'
 import { Prisma } from '$prisma/client'
+import { randomUUID } from 'crypto'
 
 const prisma = new PrismaClient()
 
@@ -25,16 +26,16 @@ export const signup = async (email: string, password: string) => {
 
 // Check user is authenticated
 export const isAuthenticated = async (token: string) => {
+  // use hash instead of token
   const decodedToken = await admin.auth().verifyIdToken(token)
-  const user = await admin.auth().getUser(decodedToken.uid)
   console.log('decodedToken', decodedToken)
+  const user = await admin.auth().getUser(decodedToken.uid)
+  console.log('user', user)
+  console.log('token',  token)
   const auth: Prisma.AuthCreateInput = {
     token,
-    uid: decodedToken.uid,
+    uid: user.uid,
     expiredAt: new Date(Date.now())
   }
-  console.log('auth', auth)
-  prisma.auth.create({ data: auth })
-  console.log('user', user)
-  return decodedToken
+  prisma.auth.create({ data: auth }).catch((e) => console.log(e))
 }

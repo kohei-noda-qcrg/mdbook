@@ -23,8 +23,8 @@ model Markdown {
 }
 
 model Auth {
-  token String @unique @id
-  uid String
+  uid String @id
+  token String @db.Text
   createdAt DateTime @default(now())
   expiredAt DateTime
 }
