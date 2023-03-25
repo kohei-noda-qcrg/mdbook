@@ -31,7 +31,7 @@ export const isAuthenticated = async (token: string) => {
   console.log('decodedToken', decodedToken)
   const user = await admin.auth().getUser(decodedToken.uid)
   console.log('user', user)
-  console.log('token',  token)
+  console.log('token', token)
   const auth: Prisma.AuthCreateInput = {
     token,
     uid: user.uid,

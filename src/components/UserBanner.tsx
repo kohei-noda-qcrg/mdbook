@@ -73,6 +73,9 @@ const UserBanner = () => {
           <Link href={pagesPath.markdown.$url()} className={styles.nav}>
             Markdown
           </Link>
+          <Link href={pagesPath.login.$url()} className={styles.nav}>
+            Login
+          </Link>
         </div>
         <Switch
           checked={isDarkMode}
@@ -81,19 +84,6 @@ const UserBanner = () => {
           icon={<LightModeIcon />}
           style={{ color: isDarkMode ? '#737' : '#CC2' }}
         />
-        <div className={styles.spacing} />
-        <div>
-          {isLoggedIn ? (
-            <>
-              <img src={userInfo.icon} className={styles.userIcon} />
-              <span>{userInfo.name}</span>
-              <input type="file" accept="image/*" onChange={editIcon} />
-              <button onClick={logout}>LOGOUT</button>
-            </>
-          ) : (
-            <button onClick={login}>LOGIN</button>
-          )}
-        </div>
       </div>
       <div className={styles.padding} />
     </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import auth from '~/utils/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { apiClient } from '~/utils/apiClient'
+import Layout from '~/components/Layout'
 
 const Login: NextPage = () => {
   const password = useRef<HTMLInputElement>(null)
@@ -47,22 +48,24 @@ const Login: NextPage = () => {
   //   }
   // }, [])
   return (
-    <div>
-      <h1>ログイン</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>メールアドレス</label>
-          <input name="email" type="email" placeholder="email" ref={email} />
-        </div>
-        <div>
-          <label>パスワード</label>
-          <input name="password" type="password" ref={password} />
-        </div>
-        <div>
-          <button>ログイン</button>
-        </div>
-      </form>
-    </div>
+    <Layout>
+      <div>
+        <h1>ログイン</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>メールアドレス</label>
+            <input name="email" type="email" placeholder="email" ref={email} />
+          </div>
+          <div>
+            <label>パスワード</label>
+            <input name="password" type="password" ref={password} />
+          </div>
+          <div>
+            <button>ログイン</button>
+          </div>
+        </form>
+      </div>
+    </Layout>
   )
 }
 
