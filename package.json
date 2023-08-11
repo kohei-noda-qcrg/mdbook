@@ -16,6 +16,7 @@
     "generate:aspida": "aspida",
     "generate:pathpida": "pathpida --enableStatic",
     "generate:server": "npm run generate --prefix server",
+    "init": "npm i && npm i --prefix server && sudo mysql < init.sql && cd server && cp .env.example .env && cd prisma && cp .env.example .env && sed -i -e \"s/DB_USER=/DB_USER=root/g\" .env && sed -i -e \"s/USER/prisma_user/g\" -e \"s/PASSWORD/pass/g\" -e \"s/HOST/localhost/g\" -e \"s/PORT/3306/g\" -e \"s/DATABASE/prisma_db/g\" .env && cd ../..",
     "lint": "eslint --ext .ts,.js,.tsx . && prettier --check \"./**/*.{ts,js,tsx}\"",
     "lint:fix": "eslint --ext .ts,.js,.tsx . --fix && prettier --write \"./**/*.{ts,js,tsx}\"",
     "migrate:dev": "npm run migrate:dev --prefix server",
