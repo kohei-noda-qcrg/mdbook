@@ -1,8 +1,7 @@
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Book from "~/components/Book";
 import { Header } from "~/components/Header";
-import { type Book } from "@prisma/client";
-
 import { api } from "~/utils/api";
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
     undefined,
     { enabled: session?.user !== undefined, retry: true },
   );
-
   return (
     <>
       <Head>
@@ -22,16 +20,7 @@ export default function Home() {
       </Head>
       <main className="w-screen min-w-fit">
         <Header />
-        {books?.map((book: Book) => (
-          <div key={book.id}>
-            <div>{book.title}</div>
-            <div>{book.description}</div>
-            <div>{book.author ?? ""}</div>
-            <div>{book.coverImage ?? ""}</div>
-            <div>{book.content}</div>
-          </div>
-        ))}
-        {/* className="flex min-h-screen flex-col items-center justify-center" */}
+        {books?.map((book: Book) => <Book key={book.id + book.title} {...book} />)}
       </main>
     </>
   );
