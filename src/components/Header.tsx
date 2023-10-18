@@ -4,9 +4,9 @@ export const Header = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="flex items-center justify-between border-b-4 border-indigo-600 bg-white px-6 py-4">
+    <header className="flex items-center justify-between border-b-2 px-6 py-2 mb-5">
       <div className="flex items-center">
-        <div className="text-xl font-bold text-gray-800 hover:text-gray-700">
+        <div className="text-xl font-bold">
           mdbook - Markdown book memo
         </div>
       </div>
