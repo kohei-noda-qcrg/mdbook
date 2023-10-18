@@ -25,7 +25,7 @@ const Book = (book: Book) => {
         {/* Add edit button at the right bottom of this component */}
         <div className="card-actions mx-3 flex justify-end p-1">
           <div className="btn btn-primary btn-sm">
-            <a href="#" onClick={(e) => e.preventDefault()}>
+            <a href="edit">
               Edit
             </a>
           </div>

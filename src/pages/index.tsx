@@ -20,7 +20,9 @@ export default function Home() {
       </Head>
       <main className="w-screen min-w-fit">
         <Header />
-        {books?.map((book: Book) => <Book key={book.id + book.title} {...book} />)}
+        {books?.map((book: Book) => (
+          <Book key={book.id + book.title} {...book} />
+        ))}
       </main>
     </>
   );
