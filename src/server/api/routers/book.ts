@@ -60,8 +60,8 @@ export const bookRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.book.findUnique({
-        where: { id: input.id },
+      return ctx.db.book.delete({
+        where: { id: input.id, userId: ctx.session.user.id },
       });
     }),
 });
