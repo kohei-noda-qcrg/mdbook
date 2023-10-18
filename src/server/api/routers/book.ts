@@ -45,7 +45,7 @@ export const bookRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.book.update({
-        where: { id: input.id },
+        where: { id: input.id, userId: ctx.session.user.id },
         data: {
           title: input.title,
           userId: ctx.session.user.id,
@@ -61,6 +61,14 @@ export const bookRouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       return ctx.db.book.delete({
+        where: { id: input.id, userId: ctx.session.user.id },
+      });
+    }),
+
+  getOne: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.book.findFirst({
         where: { id: input.id, userId: ctx.session.user.id },
       });
     }),
