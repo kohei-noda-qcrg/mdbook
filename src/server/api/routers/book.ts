@@ -20,7 +20,7 @@ export const bookRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.book.create({
+      const book = await ctx.db.book.create({
         data: {
           title: input.title,
           userId: ctx.session.user.id,
@@ -30,6 +30,7 @@ export const bookRouter = createTRPCRouter({
           content: input.content,
         },
       });
+      return book.id;
     }),
 
   update: protectedProcedure
