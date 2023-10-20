@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 
 import { type Book } from "@prisma/client";
+import { useBooks } from "~/hooks/books";
 
 const MarkdownEditor = dynamic(() => import("@uiw/react-markdown-editor"), {
   ssr: false,
@@ -20,6 +21,7 @@ const Edit = () => {
     { id: router.query.id as string },
     { enabled: session?.user !== undefined, retry: true },
   );
+  const { refetchBooks } = useBooks();
 
   // Saved! message will be shown when the content is saved until 2 seconds
   const [isUpdated, setIsUpdated] = useState(false);
@@ -40,7 +42,11 @@ const Edit = () => {
     },
   });
 
-  const handleUpdateWithNoTimeout = api.book.update.useMutation();
+  const handleUpdateWithNoTimeout = api.book.update.useMutation({
+    onSuccess: () => {
+      void refetchBooks();
+    },
+  });
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -72,7 +78,13 @@ const Edit = () => {
   };
 
   const handleOnChange = (value: string) => {
-    setBookData({ ...bookData, content: value });
+    const newBookData = { ...bookData, content: value };
+    setBookData(newBookData);
+    handleUpdateWithNoTimeout.mutate({
+      id: bookData.id,
+      title: bookData.title,
+      content: value,
+    });
   };
 
   return (
@@ -102,7 +114,6 @@ const Edit = () => {
                     title: newTitle,
                     content: bookData.content,
                   });
-                  console.log(newTitle, bookData);
                 }}
               />
               <label className="text-sm">Author</label>

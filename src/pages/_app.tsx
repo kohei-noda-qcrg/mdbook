@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { Header } from "~/components/Header";
+import SideBar from "~/components/SideBar";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,7 +16,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <Header />
       <main className="w-screen min-w-fit">
-        <Component {...pageProps} />
+        <div className="flex">
+          <div className="w-1/6">
+            <SideBar />
+          </div>
+          <div className="w-5/6">
+            <Component {...pageProps} />
+          </div>
+        </div>
       </main>
     </SessionProvider>
   );

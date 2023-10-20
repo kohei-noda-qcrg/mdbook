@@ -30,7 +30,7 @@ export const Header = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu dropdown-content rounded-box menu-sm z-[1] w-52 p-2 shadow bg-base-300"
+                className="menu dropdown-content rounded-box menu-sm z-[1] w-52 bg-base-300 p-2 shadow"
               >
                 <li>
                   <a
@@ -42,13 +42,6 @@ export const Header = () => {
                 </li>
               </ul>
             </div>
-
-            {/* <button
-              className="btn btn-outline btn-primary"
-              onClick={() => void signOut()}
-            >
-              Logout
-            </button> */}
           </>
         ) : (
           <>
