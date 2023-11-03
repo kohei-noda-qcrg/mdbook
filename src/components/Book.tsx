@@ -8,7 +8,7 @@ const Book = ({ book, onViewBook }: { book: Book; onViewBook: () => void }) => {
         className="btn flex justify-start"
         onClick={onViewBook}
       >
-        {book.title}
+        <span className="truncate">{book.title}</span>
       </div>
     </>
   );
