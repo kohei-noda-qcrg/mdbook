@@ -17,36 +17,11 @@ const MarkdownEditor = dynamic(() => import("@uiw/react-markdown-editor"), {
 const Edit = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { handleUpdate, handleUpdateWithNoTimeout, isUpdated } = useBooks();
   const { data: book } = api.book.getOne.useQuery(
     { id: router.query.id as string },
     { enabled: session?.user !== undefined, retry: true },
   );
-  const { refetchBooks } = useBooks();
-
-  // Saved! message will be shown when the content is saved until 2 seconds
-  const [isUpdated, setIsUpdated] = useState(false);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const handleUpdate = api.book.update.useMutation({
-    onSuccess: () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      setIsUpdated(false);
-      setTimeout(() => {
-        setIsUpdated(true);
-      }, 10);
-      const timeOutId = setTimeout(() => {
-        setIsUpdated(false);
-      }, 1700);
-      setTimeoutId(timeOutId);
-    },
-  });
-
-  const handleUpdateWithNoTimeout = api.book.update.useMutation({
-    onSuccess: () => {
-      void refetchBooks();
-    },
-  });
 
   useEffect(() => {
     if (status === "unauthenticated") {
