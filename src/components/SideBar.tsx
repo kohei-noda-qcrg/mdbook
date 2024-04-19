@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Book from "~/components/Book";
-import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 import { useBooks } from "~/hooks/books";
 import { useSession } from "next-auth/react";
