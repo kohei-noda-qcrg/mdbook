@@ -38,15 +38,10 @@ export function useBooks() {
         setIsUpdated(false);
       }, 1700);
       setTimeoutId(timeOutId);
-      void refetchBooks();
     },
   });
 
-  const handleUpdateWithNoTimeout = api.book.update.useMutation({
-    onSuccess: () => {
-      void refetchBooks();
-    },
-  });
+  const handleUpdateWithNoTimeout = api.book.update.useMutation({});
 
   const createNewBook = async (): Promise<string> => {
     const emptyBook = {
