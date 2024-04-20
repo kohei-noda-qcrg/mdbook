@@ -55,11 +55,6 @@ const Edit = () => {
   const handleOnChange = (value: string) => {
     const newBookData = { ...bookData, content: value };
     setBookData(newBookData);
-    handleUpdateWithNoTimeout.mutate({
-      id: bookData.id,
-      title: bookData.title,
-      content: value,
-    });
   };
 
   return (
@@ -87,7 +82,6 @@ const Edit = () => {
                   handleUpdateWithNoTimeout.mutate({
                     id: bookData.id,
                     title: newTitle,
-                    content: bookData.content,
                   });
                 }}
               />
@@ -100,8 +94,6 @@ const Edit = () => {
                   setBookData({ ...bookData, author: newAuthor });
                   handleUpdateWithNoTimeout.mutate({
                     id: bookData.id,
-                    title: bookData.title,
-                    content: bookData.content,
                     author: newAuthor,
                   });
                 }}
