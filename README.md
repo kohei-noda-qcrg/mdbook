@@ -38,9 +38,13 @@ Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/ver
     ```bash
     cp .env.example
     ```
-1. Create a new GitHub OAuth app
+1. Since social login is required to use mdbook, at least one or more OAuth clients must be created and environment variables must be set.
+   - Create a new GitHub OAuth app
      - [Create GitHub oauth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
      - Copy the client id and client secret to GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in the .env file, respectively.
+   - Create a new Google OAuth client
+     - [Setting up OAuth 2.0](https://support.google.com/cloud/answer/6158849?hl=en)
+     - Copy the client id and client secret to GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the .env file, respectively.
 2. Setup local DB
      - Install [tiup](https://docs.pingcap.com/tidb/stable/quick-start-with-tidb)
      ```bash
