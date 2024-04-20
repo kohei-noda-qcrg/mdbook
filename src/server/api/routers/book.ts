@@ -37,23 +37,24 @@ export const bookRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        title: z.string(),
+        title: z.string().optional(),
         author: z.string().optional(),
         description: z.string().optional(),
         coverImage: z.string().optional(),
-        content: z.string(),
+        content: z.string().optional()
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.book.update({
+      const cur_book = await ctx.db.book.findFirst({where : {id: input.id, userId: ctx.session.user.id}})
+      await ctx.db.book.update({
         where: { id: input.id, userId: ctx.session.user.id },
         data: {
           title: input.title,
           userId: ctx.session.user.id,
-          author: input.author,
-          description: input.description,
-          coverImage: input.coverImage,
-          content: input.content,
+          author: input.author ?? cur_book?.author,
+          description: input.description ?? cur_book?.description,
+          coverImage: input.coverImage ?? cur_book?.coverImage,
+          content: input.content ?? cur_book?.content ?? "",
         },
       });
     }),
