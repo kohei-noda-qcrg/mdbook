@@ -10,7 +10,7 @@ import { type Book } from "@prisma/client";
 import ReactMarkdown from "react-markdown";
 import { useBooks } from "~/hooks/books";
 
-const Edit = () => {
+const View = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { deleteBook } = useBooks();
@@ -40,9 +40,9 @@ const Edit = () => {
   return (
     <>
       {book && (
-        <div className="mx-5">
+        <div className="px-2">
           <div className="flex gap-5">
-            <div className="text-4xl font-bold">{book.title}</div>
+              <span className="inline-block text-4xl font-bold truncate">{book.title}</span>
             <div
               className="btn btn-info btn-outline"
               onClick={() => {
@@ -69,4 +69,4 @@ const Edit = () => {
     </>
   );
 };
-export default Edit;
+export default View;
