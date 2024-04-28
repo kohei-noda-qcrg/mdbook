@@ -11,7 +11,7 @@ export const Header = () => {
     <header className="navbar mb-5 flex items-center justify-between border-b-2 px-6 py-2">
       <div className="flex-1">
         <div
-          className="btn text-xl font-bold"
+          className="text-xl font-bold"
           onClick={() => void handleTitleClick()}
         >
           mdbook - Markdown book memo
