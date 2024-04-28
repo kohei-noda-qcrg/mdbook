@@ -1,6 +1,9 @@
-import { type Book } from "@prisma/client";
+type BookIdTitle ={
+  id: string
+  title: string
+}
 
-const Book = ({ book, onViewBook }: { book: Book; onViewBook: () => void }) => {
+const Book = ({ book, onViewBook }: { book: BookIdTitle; onViewBook: () => void }) => {
   return (
     <>
       <div

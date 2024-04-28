@@ -15,8 +15,8 @@ export default function SideBar() {
     await router.push(`/edit/${bookId}`);
   };
 
-  const handleViewBook = async (book: Book) => {
-    await router.push(`/view/${book.id}`);
+  const handleViewBook = async (bookId: string) => {
+    await router.push(`/view/${bookId}`);
   };
 
   return (
@@ -25,11 +25,11 @@ export default function SideBar() {
         <title>mdbook - Markdown book memo</title>
       </Head>
       <div className="flex flex-col gap-2">
-        {books?.map((book: Book) => (
+        {books?.map((book) => (
           <Book
             key={book.id}
             onViewBook={() => {
-              void handleViewBook(book);
+              void handleViewBook(book.id);
             }}
             book={book}
           />
