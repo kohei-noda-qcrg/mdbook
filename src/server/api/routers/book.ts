@@ -6,6 +6,7 @@ export const bookRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.db.book.findMany({
       where: { userId: ctx.session.user.id },
+      select: {id: true, title: true}
     });
   }),
 
