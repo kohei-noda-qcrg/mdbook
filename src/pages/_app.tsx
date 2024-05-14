@@ -21,7 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <main>
         <div className="container grid gap-8 pb-2 md:grid-cols-[240px_1fr] md:gap-12 md:px-6">
           <Disclosure as="nav">
-            <Disclosure.Button onClick={() => setIsOpenSidebar(!isOpenSidebar)} className="group peer absolute left-4 top-4 inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <Disclosure.Button onClick={() => setIsOpenSidebar(!isOpenSidebar)} className="group peer absolute left-4 top-4 inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
