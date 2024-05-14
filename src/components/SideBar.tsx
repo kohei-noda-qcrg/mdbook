@@ -3,6 +3,8 @@ import Book from "~/components/Book";
 import { useRouter } from "next/router";
 import { useBooks } from "~/hooks/books";
 import { useSession } from "next-auth/react";
+import { isSidebarOpen } from "~/atom/sidebarIsOpen";
+import { useAtom } from "jotai";
 
 export default function SideBar() {
   const { data: session } = useSession();
@@ -11,14 +13,17 @@ export default function SideBar() {
 
   const router = useRouter();
   const handleNewBook = async () => {
+    setIsSidebarOpen(false);
     const bookId = await createNewBook();
     await router.push(`/edit/${bookId}`);
   };
 
   const handleViewBook = async (bookId: string) => {
+    setIsSidebarOpen(false);
     await router.push(`/view/${bookId}`);
   };
 
+  const [, setIsSidebarOpen] = useAtom(isSidebarOpen);
   return (
     <>
       <Head>
